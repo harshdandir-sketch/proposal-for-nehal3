@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Be My Valentine 💖</title>
+
+<style>
+body {
+  margin: 0;
+  height: 100vh;
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #ff758c, #ff7eb3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.container {
+  text-align: center;
+  color: white;
+  z-index: 10;
+}
+
+h1 {
+  font-size: 2.4rem;
+  margin-bottom: 15px;
+}
+
+p {
+  font-size: 1.2rem;
+  margin-bottom: 30px;
+}
+
+.buttons {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  position: relative;
+}
+
+button {
+  padding: 15px 35px;
+  font-size: 1.1rem;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+}
+
+#yesBtn {
+  background: #ff2e63;
+  color: white;
+  box-shadow: 0 0 20px rgba(255,46,99,0.8);
+  animation: pulse 1.4s infinite;
+}
+
+@keyframes pulse {
+  0% { box-shadow: 0 0 10px #ff2e63; }
+  50% { box-shadow: 0 0 30px #ff2e63; }
+  100% { box-shadow: 0 0 10px #ff2e63; }
+}
+
+#noBtn {
+  background: white;
+  color: #ff2e63;
+  position: absolute;
+  right: -120px;
+}
+
+.heart {
+  position: fixed;
+  font-size: 20px;
+  animation: floatUp 6s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes floatUp {
+  from { transform: translateY(100vh); opacity: 1; }
+  to { transform: translateY(-10vh); opacity: 0; }
+}
+
+/* Celebration screen */
+#celebration {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: black;
+  color: white;
+  z-index: 999;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+#celebration img {
+  max-width: 85%;
+  max-height: 65vh;
+  border-radius: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 0 40px hotpink;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+  <h1>Nehal 💕</h1>
+  <p>Will you be my Valentine? 💘</p>
+
+  <div class="buttons">
+    <button id="yesBtn">YES 💖</button>
+    <button id="noBtn">NO 😒</button>
+  </div>
+</div>
+
+<div id="celebration">
+  <img src="love.jpg" alt="Us ❤️">
+  <h1>You said YES 💞</h1>
+</div>
+
+<audio id="song" src="make-you-mine.mp3"></audio>
+
+<script>
+const noBtn = document.getElementById("noBtn");
+const yesBtn = document.getElementById("yesBtn");
+const celebration = document.getElementById("celebration");
+const song = document.getElementById("song");
+
+noBtn.addEventListener("mouseover", moveNo);
+noBtn.addEventListener("click", moveNo);
+noBtn.addEventListener("touchstart", moveNo);
+
+function moveNo() {
+  const x = Math.random() * (window.innerWidth - 100);
+  const y = Math.random() * (window.innerHeight - 100);
+  noBtn.style.position = "fixed";
+  noBtn.style.left = x + "px";
+  noBtn.style.top = y + "px";
+}
+
+yesBtn.onclick = () => {
+  celebration.style.display = "flex";
+  song.play();
+  for (let i = 0; i < 120; i++) {
+    setTimeout(createHeart, i * 30);
+  }
+};
+
+function createHeart() {
+  const h = document.createElement("div");
+  h.className = "heart";
+  h.innerText = "💖";
+  h.style.left = Math.random() * 100 + "vw";
+  document.body.appendChild(h);
+  setTimeout(() => h.remove(), 6000);
+}
+
+setInterval(createHeart, 500);
+</script>
+
+</body>
+</html>
